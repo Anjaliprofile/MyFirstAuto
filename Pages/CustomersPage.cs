@@ -24,11 +24,11 @@ namespace Login_Page.Pages
             // Handle second window
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//*[@id='contactDetailWindow']/iframe")));
             // identify First Name of edit contact
-            driver.FindElement(By.XPath("//*[@id='FirstName']")).SendKeys("AKdjgf");            
+            driver.FindElement(By.XPath("//*[@id='FirstName']")).SendKeys("AKd");            
             // identify Last Name botton of Edit Contact
-            driver.FindElement(By.XPath("//*[@id='LastName']")).SendKeys("Kufgweug");
+            driver.FindElement(By.XPath("//*[@id='LastName']")).SendKeys("Kufg");
             // identify the Phone botton of Edit contact
-            driver.FindElement(By.XPath("//*[@id='Phone']")).SendKeys("123456789");
+            driver.FindElement(By.XPath("//*[@id='Phone']")).SendKeys("123");
             //click on Save Edit contact button
             driver.FindElement(By.XPath(".//*[@id='submitButton' ][@value='Save Contact']")).Click();
             driver.SwitchTo().DefaultContent();

@@ -48,18 +48,19 @@ namespace Login_Page
     }
 
     [TestFixture, Description("Time And Material Test Cases")]
+    [Parallelizable]
     class TimeandMaterialTestSuit : CommonDriver
     {
-        [SetUp]
-        public void StartUpTests()
-        {
-            // define driver
-            driver = new ChromeDriver(@"C:\Program Files (x86)\Google\Chrome\Application");
+        //[SetUp]
+        //public void StartUpTests()
+        //{
+        //    // define driver
+        //    driver = new ChromeDriver(@"C:\Program Files (x86)\Google\Chrome\Application");
 
-            // page object for Login page
-            LoginPage1 loginObj = new LoginPage1();
-            loginObj.LoginSteps(driver);
-        }
+        //    // page object for Login page
+        //    LoginPage1 loginObj = new LoginPage1();
+        //    loginObj.LoginSteps(driver);
+        //}
 
         [Test, Description("Check if user is able to Add TM with valid data")]
         public void AddNewTMTest()
@@ -103,28 +104,29 @@ namespace Login_Page
             tmObj.DeleteTM(driver);
         }
 
-        [TearDown]
-        public void FinishTestRun()
-        {
-            // close the driver
-            driver.Close();
+        //[TearDown]
+        //public void FinishTestRun()
+        //{
+        //    // close the driver
+        //    driver.Close();
 
-        }
+        //}
     }
 
     [TestFixture, Description("Customer Test cases")]
+    [Parallelizable]
     class CustomerTestSuit : CommonDriver
         {
-        [SetUp]
-        public void StartUpTests()
-        {
-            // define driver
-            driver = new ChromeDriver(@"C:\Program Files (x86)\Google\Chrome\Application");
+        //[SetUp]
+        //public void StartUpTests()
+        //{
+        //    // define driver
+        //    driver = new ChromeDriver(@"C:\Program Files (x86)\Google\Chrome\Application");
 
-            // page object for Login page
-            LoginPage1 loginObj = new LoginPage1();
-            loginObj.LoginSteps(driver);
-     }
+        //    // page object for Login page
+        //    LoginPage1 loginObj = new LoginPage1();
+        //    loginObj.LoginSteps(driver);
+     //}
 
         [Test, Description("Check if user is able to Add Customer with valid data")]
         public void AddNewCustonerTest()
@@ -165,11 +167,11 @@ namespace Login_Page
             custObj.DeleteCustomer(driver);
         }
 
-        [TearDown]
-        public void FinishTestRun()
-        {
-            //close the driver
-            driver.Close();
-        }
+        //[TearDown]
+        //public void FinishTestRun()
+        //{
+        //    //close the driver
+        //    driver.Close();
+        //}
     }
 }
