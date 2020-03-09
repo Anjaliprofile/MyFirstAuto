@@ -4,7 +4,7 @@
 	I would like to create, edit, view, and delete tome and material records.
 
 @mytag
-Scenario: I'd like to add time using valid details
+    Scenario: I'd like to add time using valid details
 	Given I have logged In TurnUp portal
 	And I navigate to Time and Material Page
 	Then I should be able to create time record with valid information

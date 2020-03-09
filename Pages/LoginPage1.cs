@@ -1,4 +1,5 @@
 ﻿using Login_Page.Utilities;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
@@ -17,6 +18,8 @@ namespace Login_Page.Pages
             driver.Navigate().GoToUrl("http://horse-dev.azurewebsites.net/Account/Login?ReturnUrl=%2f");
             // Maximize the browser
             driver.Manage().Window.Maximize();
+            // wait for the login page to be loaded and username textbox be rendered
+            Sync.WaitForVisiblitity(driver,"Id", "Username", 10);
             // Populate Login page test data collection
             ExcelLibHelpers.PopulateInCollection(@"A:\TestCases\Login Page\Login Page\TestData\TestData.xls", "LoginPage");
             // identify username and username value
@@ -25,15 +28,28 @@ namespace Login_Page.Pages
             driver.FindElement(By.Id("Password")).SendKeys(ExcelLibHelpers.ReadData(2, "Password"));
             // identify login button and click
             driver.FindElement(By.XPath("//*[@id='loginForm']/form/div[3]/input[1]")).Click();
-            // verify if the home page is displayed as expected
-            if (driver.FindElement(By.XPath("//*[@id='logoutForm']/ul/li/a")).Text == "Hello hari!")
+            // wait for the login page to be loaded and username textbox be rendered
+            Sync.WaitForVisiblitity(driver, "XPath", "//*[@id='logoutForm']/ul/li/a", 5);
+            // Use Exception
+            try
             {
-                Console.WriteLine("Test Passed");
+                // Apply Assertion
+                Assert.That(driver.FindElement(By.XPath("//*[@id='logoutForm']/ul/li/a")).Text, Is.EqualTo(ExcelLibHelpers.ReadData(2, "Username")));
+
             }
-            else
+            catch(Exception ex)
             {
-                Console.WriteLine("Test Failed");
+                Console.WriteLine("Home page not displayed", ex.Message);
             }
+                        // verify if the home page is displayed as expected
+            //if (driver.FindElement(By.XPath("//*[@id='logoutForm']/ul/li/a")).Text == "Hello hari!")
+            //{
+            //    Console.WriteLine("Test Passed");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Test Failed");
+            //}
 
         }
     }

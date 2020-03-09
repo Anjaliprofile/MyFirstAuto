@@ -42,10 +42,9 @@ namespace Login_Page.StepDefinations
         [Then(@"I should be able to edit time record with updated information")]
         public void ThenIShouldBeAbleToEditTimeRecordWithUpdatedInformation()
         {
-            // page object for TM page
+               // page object for TM page
             TMPage tmObj = new TMPage();
-
-            // Edit TM test case
+             // Edit TM test case
             tmObj.EditTM(driver);
             // quit driver
             driver.Quit();
@@ -59,7 +58,7 @@ namespace Login_Page.StepDefinations
             // Delete TM test case
             tmObj.DeleteTM(driver);
             // quit driver
-            driver.Quit();
+            //driver.Quit();
         }
 
     }
