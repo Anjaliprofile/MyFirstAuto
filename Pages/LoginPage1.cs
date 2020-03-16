@@ -19,7 +19,7 @@ namespace Login_Page.Pages
             // Maximize the browser
             driver.Manage().Window.Maximize();
             // wait for the login page to be loaded and username textbox be rendered
-            Sync.WaitForVisiblitity(driver,"Id", "Username", 10);
+            //Sync.WaitForVisiblitity(driver,"Id", "Username", 10);
             // Populate Login page test data collection
             ExcelLibHelpers.PopulateInCollection(@"A:\TestCases\Login Page\Login Page\TestData\TestData.xls", "LoginPage");
             // identify username and username value
@@ -34,7 +34,7 @@ namespace Login_Page.Pages
             try
             {
                 // Apply Assertion
-                Assert.That(driver.FindElement(By.XPath("//*[@id='logoutForm']/ul/li/a")).Text, Is.EqualTo(ExcelLibHelpers.ReadData(2, "Username")));
+                Assert.That(driver.FindElement(By.XPath("//*[@id='logoutForm']/ul/li/a")).Text, Is.EqualTo("Hello hari!"));
 
             }
             catch(Exception ex)

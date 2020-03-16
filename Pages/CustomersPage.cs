@@ -24,7 +24,9 @@ namespace Login_Page.Pages
             //identify Edit Contact button
             driver.FindElement(By.XPath("//*[@id='EditContactButton']")).Click();
             //wait
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
+            // wait for the Edit Contact page to be loaded and First name, LastName textbox rendered
+            Sync.WaitForVisiblitity(driver, "XPath", "//*[@id='contactDetailWindow']/iframe", 10);
             // Handle second window
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//*[@id='contactDetailWindow']/iframe")));
             // identify First Name of edit contact
@@ -48,13 +50,16 @@ namespace Login_Page.Pages
             // Click on Customer
            driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/ul/li[1]/a")).Click();
             // wait
-            Thread.Sleep(3000);
+            // Thread.Sleep(3000);
+            // wait for the Customer page to be loaded and Go to Last Page button rendered
+            Sync.WaitForVisiblitity(driver, "XPath", "//*[@id='clientsGrid']/div[4]/a[4]", 10);
 
             // go to the last page
             driver.FindElement(By.XPath("//*[@id='clientsGrid']/div[4]/a[4]")).Click();
-            //// wait
-            Thread.Sleep(1000);
-
+            // wait
+            //Thread.Sleep(1000);
+            // wait for the Last record of Customer page to be loaded and new record to be display
+            Sync.WaitForVisiblitity(driver, "XPath", "//*[@id='clientsGrid']/div[2]/table/tbody/tr[last()]/td[2]", 10);
             // Implementation of Assertion
             Assert.That(driver.FindElement(By.XPath("//*[@id='clientsGrid']/div[2]/table/tbody/tr[last()]/td[2]")).Text, Is.EqualTo(ExcelLibHelpers.ReadData(2, "Name")));
 

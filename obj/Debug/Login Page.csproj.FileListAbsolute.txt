@@ -52,3 +52,4 @@ A:\TestCases\Login Page\Login Page\bin\Debug\TechTalk.SpecFlow.xml
 A:\TestCases\Login Page\Login Page\bin\Debug\TechTalk.SpecFlow.NUnit.SpecFlowPlugin.pdb
 A:\TestCases\Login Page\Login Page\bin\Debug\Utf8Json.xml
 A:\TestCases\Login Page\Login Page\obj\Debug\Login Page.exe.config
+A:\TestCases\Login Page\Login Page\bin\Debug\SeleniumExtras.WaitHelpers.dll

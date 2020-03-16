@@ -16,6 +16,7 @@ namespace Login_Page.Pages
         {
             // identify Create New button 
             driver.FindElement(By.XPath("//*[@id='container']/p/a")).Click();
+            
             // Populate Create TM test data collection
             ExcelLibHelpers.PopulateInCollection(@"A:\TestCases\Login Page\Login Page\TestData\TestData.xls", "TMPage");
             //identify code button
@@ -25,9 +26,13 @@ namespace Login_Page.Pages
             //click on Save button
             driver.FindElement(By.Id("SaveButton")).Click();
             // wait
-            Thread.Sleep(1000);
+            // Thread.Sleep(1000);
+            // wait for the TM page to be loaded and Go to last page button rendered
+             Sync.WaitForVisiblitity(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]", 10);
             // go to the last page
-            driver.FindElement(By.XPath(".//*[@id='tmsGrid']/div[4]/a[4]")).Click();
+            driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]")).Click();
+            // wait for the TM page to be loaded and Go to last page button rendered
+            Sync.WaitForVisiblitity(driver, "XPath", ".//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]", 20);
             // Implementation of Assertion
             Assert.That(driver.FindElement(By.XPath(".//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]")).Text, Is.EqualTo(ExcelLibHelpers.ReadData(2, "Code")));
 
@@ -46,7 +51,10 @@ namespace Login_Page.Pages
         public void EditTM(IWebDriver driver)
         {
             // wait 
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
+            // wait for the TM page to be loaded and Edit button rendered
+            Sync.WaitForVisiblitity(driver, "XPath", ".//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]", 10);
+
             // click on edit button 
             driver.FindElement(By.XPath(".//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]")).Click();
             // remove record from code button 
@@ -62,7 +70,9 @@ namespace Login_Page.Pages
             // click on save button
             driver.FindElement(By.XPath("//*[@id='SaveButton']")).Click();
             // Wait
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
+            // wait for the TM page to be loaded and Edited Code textbox button rendered
+            Sync.WaitForVisiblitity(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]", 10);
             // Implementation of Assertion
             Assert.That(driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]")).Text, Is.EqualTo(ExcelLibHelpers.ReadData(3, "Code")));
             // verify if T&M editing is success
@@ -79,13 +89,42 @@ namespace Login_Page.Pages
         public void DeleteTM(IWebDriver driver)
         {
             //wait
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
+           // wait for the TM page to be loaded and Delete button rendered
+            Sync.WaitForVisiblitity(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]", 10);
+           //count record before deletion
+            string countBeforeDelete = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/span[2]")).Text.Remove(0, 9);
+            Console.WriteLine(countBeforeDelete);
+            string numberBefore = countBeforeDelete.Remove(countBeforeDelete.Length - 5);
+            Console.WriteLine(numberBefore);
             // click on delete button
             driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]")).Click();
            // click OK on Pop buttom
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
-            Console.WriteLine("Deleted Successfully");
+            Console.WriteLine("Deleted Sucessfully");
+            // Refresh page after delete
+            driver.Navigate().Refresh();
+            // wait for check deleted record
+            Thread.Sleep(1000);
+           
+            //count record After deletion
+            string countAfterDelete = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/span[2]")).Text.Remove(0, 9);
+            Console.WriteLine(countAfterDelete);
+            string numberAfter = countAfterDelete.Remove(countAfterDelete.Length - 5);
+            Console.WriteLine(numberAfter);
+            // use assertion
+            // Assert.That(numberBefore!=numberAfter);
+            Assert.AreNotEqual(numberBefore, numberAfter);
+            Console.WriteLine("deleted sucessfully");
+            //if(numberBefore == numberAfter)
+            //{
+            //    Console.WriteLine("Record is not deleted");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Record is successfully deleted");
+            //}
             // Wait
             //Thread.Sleep(1000);
             //// Check delete function is work or not
